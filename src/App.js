@@ -6,6 +6,7 @@ import {Element} from './components/Element';
 import {Where} from './components/Where';
 import {v4 as uuidv4} from 'uuid';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
 
@@ -34,15 +35,15 @@ function App() {
 
     // FROM builder
     if (sqlRequest.from) {
-      sqlRequestBuild = sqlRequestBuild + " FROM " + sqlRequest.from
+      sqlRequestBuild = sqlRequestBuild + " <br/>FROM " + sqlRequest.from
     }
 
     // WHERE builder
     if (sqlRequest.where.length > 0) {
-      sqlRequestBuild = sqlRequestBuild + " WHERE " + sqlRequest.where[0].value
+      sqlRequestBuild = sqlRequestBuild + " <br/>WHERE " + sqlRequest.where[0].value
       if (sqlRequest.where.length > 1) {
         for (let i = 1; i < sqlRequest.where.length; i++) {
-          sqlRequestBuild = sqlRequestBuild + " AND " + sqlRequest.where[i].value
+          sqlRequestBuild = sqlRequestBuild + " <br/>AND " + sqlRequest.where[i].value
         }
       }
     }
@@ -96,12 +97,11 @@ function App() {
         {sqlRequest.select.map((element, index) => (
             <Element value={element.value} id={element.id} key={index} deletee={deleteSelect}></Element>
         ))}
+        <From setFrom={setFrom}></From>
         <Where addWhere={addWhere}></Where>
         {sqlRequest.where.map((element, index) => (
             <Element value={element.value} id={element.id} key={index} deletee={deleteWhere}></Element>
         ))}
-        <From setFrom={setFrom}></From>
-        <button onClick={seeSql}>See SQL</button>
       </div>
   );
 }
