@@ -5,7 +5,7 @@ export const Sql = () => {
     const [sqlRequest, setSqlRequest] = useState({
         select: ['id', 'name', 'surname', 'isAdmin'],
         from: 'users',
-        where: []
+        where: ['name = "Arthur"', 'surname = "COTTEY"']
     })
 
     const sqlRequestBuilder = () => {
@@ -27,6 +27,16 @@ export const Sql = () => {
         // FROM builder
         if (sqlRequest.from) {
             sqlRequestBuild = sqlRequestBuild + " FROM " + sqlRequest.from
+        }
+
+        // WHERE builder
+        if (sqlRequest.where.length > 0) {
+            sqlRequestBuild = sqlRequestBuild + " WHERE " + sqlRequest.where[0]
+            if (sqlRequest.where.length > 1) {
+                for (let i = 1; i < sqlRequest.where.length; i++) {
+                    sqlRequestBuild = sqlRequestBuild + " AND " + sqlRequest.where[i]
+                }
+            }
         }
 
         sqlRequestBuild = sqlRequestBuild + ";"
