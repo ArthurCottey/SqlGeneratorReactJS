@@ -1,5 +1,6 @@
 import react from "react";
 import {useState} from "react";
+import Form from 'react-bootstrap/Form';
 
 export const From = ({setFrom}) => {
 
@@ -8,9 +9,8 @@ export const From = ({setFrom}) => {
     }
 
     return (
-        <div>
-
-            <input type="text" placeholder="FROM" onChange={(e) => changeFrom(e.target.value)}/>
+        <div className="inputBox mt-3">
+            <Form.Control type="text" placeholder="FROM" onChange={(e) => changeFrom(e.target.value)} />
 
         </div>
     );
