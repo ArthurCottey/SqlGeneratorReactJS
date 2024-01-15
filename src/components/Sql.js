@@ -3,14 +3,15 @@ import {useState} from "react";
 
 export const Sql = () => {
     const [sqlRequest, setSqlRequest] = useState({
-        select: ['id', 'name', 'surname', 'isAdmin'],
-        from: 'users',
-        where: ['name = "Arthur"', 'surname = "COTTEY"']
+        select: [],
+        from: '',
+        where: []
     })
+
+    const [requestBuildingTest, setSqlRequestBuildingTest] = useState("SELECT *;")
 
     const sqlRequestBuilder = () => {
         let sqlRequestBuild = "";
-
 
         // SELECT builder
         if (sqlRequest.select.length < 1) {
@@ -40,8 +41,15 @@ export const Sql = () => {
         }
 
         sqlRequestBuild = sqlRequestBuild + ";"
+        setSqlRequestBuildingTest(sqlRequestBuild);
+    }
 
-        console.log(sqlRequestBuild)
+
+
+    const setFrom = (value) => {
+        sqlRequest.from = value;
+        setSqlRequestBuildingTest(sqlRequestBuilder())
+        console.log(sqlRequestBuilder())
     }
 
     const seeSql = () => {
@@ -50,8 +58,10 @@ export const Sql = () => {
 
     return (
         <div>
+            <span className="sqlConsole">{requestBuildingTest}</span>
 
-            <button onClick={() => sqlRequestBuilder()}>SQL Builder</button>
+            <input type="text" placeholder="FROM" onChange={(e) => setFrom(e.target.value)}/>
+
             <button onClick={() => seeSql()}>See SQL</button>
         </div>
     );
